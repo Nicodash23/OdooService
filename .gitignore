@@ -1,2 +1,4 @@
 .env
 Microdoc.txt
+/Data*
+odoo_pg_pass
