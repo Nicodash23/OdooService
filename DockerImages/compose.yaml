@@ -5,7 +5,7 @@ services:
     user: root
     entrypoint: ["chown", "-R", "odoo:odoo", "/var/lib/odoo"]
     volumes:
-      - ${ODOODATA:?set ODOODATA in .env}:/var/lib/odoo
+      - ${ODOODATA}:/var/lib/odoo
     restart: "no"
 
   web:
@@ -18,7 +18,7 @@ services:
     ports:
       - "8069:8069"
     volumes:
-      - ${ODOODATA:?set ODOODATA in .env}:/var/lib/odoo
+      - ${ODOODATA}:/var/lib/odoo
       - ./config:/etc/odoo
       - ./addons:/mnt/extra-addons
     environment:
@@ -37,7 +37,7 @@ services:
       - POSTGRES_PASSWORD_FILE=/run/secrets/postgresql_password
       - PGDATA=/var/lib/postgresql/data/pgdata
     volumes:
-      - ${DBDATA:?set DBDATA in .env}:/var/lib/postgresql/data
+      - ${DBDATA}:/var/lib/postgresql/data
     secrets:
       - postgresql_password
     healthcheck:
@@ -49,7 +49,7 @@ services:
 
 secrets:
   postgresql_password:
-    file: ./odoo_pg_pass
+    file: ${PASSWORD_FILE}
 
 # base-net is not attached to any service yet; re-enable when the React frontend joins it
 # networks:
