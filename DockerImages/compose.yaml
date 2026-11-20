@@ -1,3 +1,4 @@
+name: odoo_service #definisce un gruppo di container ed il prefisso del nome di essi
 services:
   odoo:  #Nome del container 
     image: odoo:20.0  #docker image di odoo 20, da dockerhub
