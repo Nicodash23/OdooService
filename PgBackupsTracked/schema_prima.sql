@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict coZAw9sacgXQrdT3iaMTOjr4PqZTM71Opjhmzemg0igcFdjjJqCYuk27X4iWavv
+\restrict Zl1VFOKP8fo6JayPQJSmFkxd3gmk5tDHdY5ftbXY0mmcnT160y8xSYmRCvHubhS
 
 -- Dumped from database version 19.0 (Debian 19.0-1.pgdg13+1)
 -- Dumped by pg_dump version 19.0 (Debian 19.0-1.pgdg13+1)
@@ -38228,6 +38228,142 @@ COMMENT ON TABLE public.template_attribute_value_stock_move_rel IS 'RELATION BET
 
 
 --
+-- Name: test_model; Type: TABLE; Schema: public; Owner: wutWiSo4U74
+--
+
+CREATE TABLE public.test_model (
+    id integer NOT NULL,
+    quantity integer,
+    create_uid integer,
+    write_uid integer,
+    name character varying NOT NULL,
+    code character varying,
+    state character varying NOT NULL,
+    date_start date,
+    description text,
+    is_active boolean,
+    create_date timestamp without time zone,
+    write_date timestamp without time zone,
+    price double precision NOT NULL
+);
+
+
+ALTER TABLE public.test_model OWNER TO "wutWiSo4U74";
+
+--
+-- Name: TABLE test_model; Type: COMMENT; Schema: public; Owner: wutWiSo4U74
+--
+
+COMMENT ON TABLE public.test_model IS 'Test Model';
+
+
+--
+-- Name: COLUMN test_model.quantity; Type: COMMENT; Schema: public; Owner: wutWiSo4U74
+--
+
+COMMENT ON COLUMN public.test_model.quantity IS 'Quantity';
+
+
+--
+-- Name: COLUMN test_model.create_uid; Type: COMMENT; Schema: public; Owner: wutWiSo4U74
+--
+
+COMMENT ON COLUMN public.test_model.create_uid IS 'Created by';
+
+
+--
+-- Name: COLUMN test_model.write_uid; Type: COMMENT; Schema: public; Owner: wutWiSo4U74
+--
+
+COMMENT ON COLUMN public.test_model.write_uid IS 'Last Updated by';
+
+
+--
+-- Name: COLUMN test_model.name; Type: COMMENT; Schema: public; Owner: wutWiSo4U74
+--
+
+COMMENT ON COLUMN public.test_model.name IS 'Name';
+
+
+--
+-- Name: COLUMN test_model.code; Type: COMMENT; Schema: public; Owner: wutWiSo4U74
+--
+
+COMMENT ON COLUMN public.test_model.code IS 'Code';
+
+
+--
+-- Name: COLUMN test_model.state; Type: COMMENT; Schema: public; Owner: wutWiSo4U74
+--
+
+COMMENT ON COLUMN public.test_model.state IS 'Status';
+
+
+--
+-- Name: COLUMN test_model.date_start; Type: COMMENT; Schema: public; Owner: wutWiSo4U74
+--
+
+COMMENT ON COLUMN public.test_model.date_start IS 'Start Date';
+
+
+--
+-- Name: COLUMN test_model.description; Type: COMMENT; Schema: public; Owner: wutWiSo4U74
+--
+
+COMMENT ON COLUMN public.test_model.description IS 'Description';
+
+
+--
+-- Name: COLUMN test_model.is_active; Type: COMMENT; Schema: public; Owner: wutWiSo4U74
+--
+
+COMMENT ON COLUMN public.test_model.is_active IS 'Active';
+
+
+--
+-- Name: COLUMN test_model.create_date; Type: COMMENT; Schema: public; Owner: wutWiSo4U74
+--
+
+COMMENT ON COLUMN public.test_model.create_date IS 'Created on';
+
+
+--
+-- Name: COLUMN test_model.write_date; Type: COMMENT; Schema: public; Owner: wutWiSo4U74
+--
+
+COMMENT ON COLUMN public.test_model.write_date IS 'Last Updated on';
+
+
+--
+-- Name: COLUMN test_model.price; Type: COMMENT; Schema: public; Owner: wutWiSo4U74
+--
+
+COMMENT ON COLUMN public.test_model.price IS 'Price';
+
+
+--
+-- Name: test_model_id_seq; Type: SEQUENCE; Schema: public; Owner: wutWiSo4U74
+--
+
+CREATE SEQUENCE public.test_model_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.test_model_id_seq OWNER TO "wutWiSo4U74";
+
+--
+-- Name: test_model_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: wutWiSo4U74
+--
+
+ALTER SEQUENCE public.test_model_id_seq OWNED BY public.test_model.id;
+
+
+--
 -- Name: uom_uom_id_seq; Type: SEQUENCE; Schema: public; Owner: wutWiSo4U74
 --
 
@@ -40722,6 +40858,13 @@ ALTER TABLE ONLY public.stock_zero_demand_confirmation ALTER COLUMN id SET DEFAU
 --
 
 ALTER TABLE ONLY public.task_share_wizard ALTER COLUMN id SET DEFAULT nextval('public.task_share_wizard_id_seq'::regclass);
+
+
+--
+-- Name: test_model id; Type: DEFAULT; Schema: public; Owner: wutWiSo4U74
+--
+
+ALTER TABLE ONLY public.test_model ALTER COLUMN id SET DEFAULT nextval('public.test_model_id_seq'::regclass);
 
 
 --
@@ -44893,6 +45036,14 @@ ALTER TABLE ONLY public.task_share_wizard
 
 ALTER TABLE ONLY public.template_attribute_value_stock_move_rel
     ADD CONSTRAINT template_attribute_value_stock_move_rel_pkey PRIMARY KEY (move_id, template_attribute_value_id);
+
+
+--
+-- Name: test_model test_model_pkey; Type: CONSTRAINT; Schema: public; Owner: wutWiSo4U74
+--
+
+ALTER TABLE ONLY public.test_model
+    ADD CONSTRAINT test_model_pkey PRIMARY KEY (id);
 
 
 --
@@ -59271,6 +59422,22 @@ ALTER TABLE ONLY public.template_attribute_value_stock_move_rel
 
 
 --
+-- Name: test_model test_model_create_uid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: wutWiSo4U74
+--
+
+ALTER TABLE ONLY public.test_model
+    ADD CONSTRAINT test_model_create_uid_fkey FOREIGN KEY (create_uid) REFERENCES public.res_users(id) ON DELETE SET NULL;
+
+
+--
+-- Name: test_model test_model_write_uid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: wutWiSo4U74
+--
+
+ALTER TABLE ONLY public.test_model
+    ADD CONSTRAINT test_model_write_uid_fkey FOREIGN KEY (write_uid) REFERENCES public.res_users(id) ON DELETE SET NULL;
+
+
+--
 -- Name: uom_uom uom_uom_create_uid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: wutWiSo4U74
 --
 
@@ -59434,5 +59601,5 @@ GRANT ALL ON SCHEMA public TO PUBLIC;
 -- PostgreSQL database dump complete
 --
 
-\unrestrict coZAw9sacgXQrdT3iaMTOjr4PqZTM71Opjhmzemg0igcFdjjJqCYuk27X4iWavv
+\unrestrict Zl1VFOKP8fo6JayPQJSmFkxd3gmk5tDHdY5ftbXY0mmcnT160y8xSYmRCvHubhS
 
